@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Teleapp{% endblock %}
+{% block content %}
+    {% if request.user.is_authenticated %}
+        <h1>Dear {{ request.user.username }}</h1>
+        <p>Welcome to your teleapp account</p>
+        <img src="1.jpg", height="55%", width="45%", alt="Photo">
+        <p>If you want to upload a photo, <a href="{% url 'upload' %}"> click here.</a></p>
+    {% endif %}
+{% endblock %}

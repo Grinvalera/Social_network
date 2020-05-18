@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
-from .models import User
+from .models import User, PictureUser
 
 
 class LoginForm(forms.Form):
@@ -13,7 +13,7 @@ class LoginForm(forms.Form):
 class RegistrationForm(ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'nickname', 'phone_number']
+        fields = ['first_name', 'last_name', 'email', 'username', 'phone_number']
 
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
@@ -24,3 +24,10 @@ class RegistrationForm(ModelForm):
             return cd['password2']
         else:
             raise forms.ValidationError('Password don\'t match.')
+
+
+class UploadPicture(ModelForm):
+    class Meta:
+        model = PictureUser
+        exclude = []
+

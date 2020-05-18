@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, UploadPicture
+from .models import User
 
 
-def user_login(request):
+"""def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -25,6 +26,7 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})
+    """
 
 
 def registration_user(request):
@@ -41,5 +43,20 @@ def registration_user(request):
 
 @login_required
 def teleapp(request):
-    return render(request, 'account/teleapp.html', {'section': 'teleapp'})
+    return render(request, 'account/teleapp.html', {'teleapp': teleapp})
+
+
+def upload(request):
+    if request.method == 'POST':
+        upload_photo = UploadPicture(request.POST, request.FILES)
+        if upload_photo.is_valid():
+            photo = upload_photo.save(commit=False)
+            photo.save()
+            return render(request, 'account/upload_done.html', {'photo': photo})
+        else:
+            HttpResponse("Not valid")
+    else:
+        upload_photo = UploadPicture()
+    return render(request, 'account/test.html', {'upload_photo': upload_photo})
+
 # Create your views here.

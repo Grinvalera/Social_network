@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="logo"><a href="{% url 'teleapp' %}">TeleApp</a>
+            {% if request.user.is_authenticated %}
+                {% if section == "photo" %} class="selected"{% endif %}
+                <a href="#">Photo</a>
+                {% if section == "friends" %} class="selected"{% endif %}
+                <a href="#">Friends</a>
+                {% if section == "chats" %} class="selected"{% endif %}
+                <a href="#">Chats</a>
+                {% if section == "logout" %} class="selected"{% endif %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% endif %}
+    <!--<span class="user">
+        {% if request.user.is_authenticated %}
+        <p>Hello {{ request.user.nickname }}, <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </span>-->
+    </div>
+    <div class="fon1">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

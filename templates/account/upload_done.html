@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Upload Done!{% endblock %}
+{% block content %}
+    <div class="upload">
+    <h1>Congratulation!</h1>
+    <p>You have successfully added your photo</p>
+    <p>{{ photo.user }}</p>
+    <img src="{{ photo.picture.url }}", height="40%", width="50%", alt="Photo">
+    <p>Back <a href="{% url 'teleapp' %}">home</a></p>
+    </div>
+{% endblock %}
